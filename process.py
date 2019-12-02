@@ -130,7 +130,7 @@ class Solver:
         self.temperature = max(1, self.temperature - self.temperature * self.cooling_rate)
 
     def solve(self):
-        start_time = time.clock()
+        start_time = time.perf_counter()
         self.generate_min_solution()
         self.generate_mid_solution()
         self.generate_max_solution()
@@ -143,7 +143,7 @@ class Solver:
             # mean_cost = total_cost / self.solution_depth
             # print(mean_cost)
         best_solution = self.get_best_solution()
-        end_time = time.clock()
+        end_time = time.perf_counter()
         total_time = round(end_time - start_time, 2)
         print('~~~ Best Solution ~~~')
         print(best_solution)
@@ -295,17 +295,21 @@ class Solver:
 
     def explore_up(self, solution):
         # adds solutions with one additional stop/detour to solution space
-        candidate_locations = set(self.locations) - set(solution.path)
+        valid_locations = set(self.locations) - set(solution.path)
+        num_candidate_locations = min(10, len(set(valid_locations)))
+        candidate_locations = set(random.sample(valid_locations, num_candidate_locations))
         if len(candidate_locations) > 0:
             for location in candidate_locations:
                 candidate_path = self.find_best_path_addition(solution.path, location)
-                candidate_dropoffs = self.find_best_dropoffs(solution.path)
+                candidate_dropoffs = self.find_best_dropoffs(candidate_path)
                 candidate_solution = Solution(self.graph, candidate_path, candidate_dropoffs)
                 self.add_solution(candidate_solution)
 
     def explore_down(self, solution):
         # adds solutions with one less stop/detour to solution space
-        for location in solution.path:
+        num_candidate_locations = min(10, len(set(solution.path)))
+        candidate_locations = set(random.sample(set(solution.path), num_candidate_locations))
+        for location in candidate_locations:
             if location in solution.dropoffs.keys():
                 index = solution.path.index(location)
                 previous_node_index = self.previous_stop(solution, index)
@@ -320,6 +324,30 @@ class Solver:
                 candidate_solution = Solution(self.graph, candidate_path, candidate_dropoffs)
                 self.add_solution(candidate_solution)
 
+    def explore_across(self, solution):
+        # adds soutions with same number of stops/detours to solution space
+        valid_new_locations = set(self.locations) - set(solution.path)
+        num_candidate_new_locations = min(3, len(set(valid_new_locations)))
+        valid_old_locations = set(solution.path)
+        num_candidate_old_locations = min(3, len(set(valid_old_locations)))
+        candidate_new_locations = set(random.sample(valid_new_locations, num_candidate_new_locations))
+        candidate_old_locations = set(random.sample(valid_old_locations, num_candidate_old_locations))
+        for old_location in candidate_old_locations:
+            for new_location in candidate_new_locations:
+                index = solution.path.index(old_location)
+                previous_node_index = self.previous_stop(solution, index)
+                previous_node = solution.path[previous_node_index]
+                next_node_index = self.next_stop(solution, index)
+                next_node = solution.path[next_node_index]
+                shortcut = nx.shortest_path(self.graph, previous_node, next_node)
+                path_start = solution.path[:previous_node_index]
+                path_end = solution.path[next_node_index - 1:]
+                shortened_path = path_start + shortcut + path_end
+                candidate_path = self.find_best_path_addition(shortened_path, new_location)
+                candidate_dropoffs = self.find_best_dropoffs(candidate_path)
+                candidate_solution = Solution(self.graph, candidate_path, candidate_dropoffs)
+                self.add_solution(candidate_solution)
+
     def explore(self, solution):
         self.num_explore_calls += 1
         # explores the given solution
@@ -330,6 +358,7 @@ class Solver:
             solution.explored = True
             self.explore_up(solution)
             self.explore_down(solution)
+            self.explore_across(solution)
 
     def explore_all(self, solutions):
         # explores all solutions in given set or list
