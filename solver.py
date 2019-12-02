@@ -58,7 +58,7 @@ def convertToFile(path, dropoff_mapping, path_to_file, list_locs):
     utils.write_to_file(path_to_file, string)
 
 def solve_from_file(input_file, output_directory, params=[]):
-    # print('Processing', input_file)
+    print('Processing', input_file)
 
     input_data = utils.read_file(input_file)
     num_of_locations, num_houses, list_locations, list_houses, starting_car_location, adjacency_matrix = data_parser(input_data)
@@ -80,8 +80,9 @@ def solve_all(input_directory, output_directory, params=[]):
     for input_file in input_files:
         input_files_so_far += 1
         progress = 100 * input_files_so_far / total_input_files
-        sys.stdout.write('\r' + 'progress so far: ' + str(round(progress, 2)) + '%' + ' done')
-        sys.stdout.flush()
+        print('progress so far: ' + str(round(progress, 2)) + '%' +' done')
+        # sys.stdout.write('\r' + 'progress so far: ' + str(round(progress, 2)) + '%' + ' done')
+        # sys.stdout.flush()
         solve_from_file(input_file, output_directory, params=params)
 
 
