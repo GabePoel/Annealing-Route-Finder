@@ -134,11 +134,11 @@ class Solver:
         while not self.all_explored(good_solutions):
             self.explore_all(good_solutions)
             good_solutions = self.get_best_solutions(self.solution_depth)
-            total_cost = sum(s.cost for s in good_solutions)
-            mean_cost = total_cost / self.solution_depth
-            print(mean_cost)
+            # total_cost = sum(s.cost for s in good_solutions)
+            # mean_cost = total_cost / self.solution_depth
+            # print(mean_cost)
         best_solution = self.get_best_solution()
-        print(best_solution)
+        # print(best_solution)
         return best_solution.path, best_solution.dropoffs
 
     def generate_min_solution(self):
