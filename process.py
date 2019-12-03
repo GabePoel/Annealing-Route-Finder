@@ -53,7 +53,7 @@ class Solution:
     def setup_parameters(self):
         self.print_path = True
         self.print_cost = True
-        self.print_dropoffs = True
+        self.print_dropoffs = False
 
     def find_cost(self):
         cost_given = cost_of_solution(self.graph, self.path, self.dropoffs)
@@ -88,6 +88,9 @@ class Solution:
 
 class Solver:
     def __init__(self, list_of_locations, list_of_homes, starting_car_location, adjacency_matrix, params=['10']):
+        self.explore_updates = False
+        self.live_update = False
+        self.final_stats = True
         self.known_solutions = {}
         self.best_solutions = []
         self.location_names = list_of_locations
@@ -112,45 +115,53 @@ class Solver:
         solution_depth = 1500 / self.num_locations
         self.initial_depth = solution_depth
         self.density = nx.density(self.graph)
-        # print('density ' + str(self.density))
         self.final_depth = 2
         self.energy_level = 0
+        self.search_multiplier = 10
         self.initial_temperature = 36 * self.num_locations
+        if self.num_locations > 100:
+            self.initial_temperature = self.initial_temperature * 2
+            self.search_multiplier = 5
         self.temperature = self.initial_temperature
         self.cooling_rate = 0
         self.update_explore_depth()
+        self.stop = False
 
     def update_explore_depth(self):
         self.energy_level = self.num_known_solutions / self.density
         self.explore_depth = int(max([self.initial_depth * np.exp(- self.energy_level / self.temperature), self.final_depth]))
-        # print('---')
-        # print('current energy level: ' + str(self.energy_level))
-        # print('current temperature: ' + str(self.temperature))
-        # print('current explore depth: ' + str(self.explore_depth))
+        if self.explore_updates:
+            print('---')
+            print('current energy level: ' + str(self.energy_level))
+            print('current temperature: ' + str(self.temperature))
+            print('current explore depth: ' + str(self.explore_depth))
         self.temperature = max(1, self.temperature - self.temperature * self.cooling_rate)
 
     def solve(self):
-        start_time = time.perf_counter()
-        self.generate_min_solution()
-        self.generate_mid_solution()
+        # generates seeding solutions and then makes explore calls around them
+        self.start_time = time.perf_counter()
+        self.seeding_solutions = {}
         self.generate_max_solution()
+        self.generate_mid_solution()
+        if self.num_locations < 101:
+            self.generate_min_solution()
+        self.seeding_solutions = self.known_solutions.copy()
         good_solutions = self.get_best_solutions(self.explore_depth)
-        while not self.all_explored(good_solutions):
+        while self.stop or not self.all_explored(good_solutions):
+            self.stop_exploring()
             self.explore_all(good_solutions)
             self.update_explore_depth()
             good_solutions = self.get_best_solutions(self.explore_depth)
-            # total_cost = sum(s.cost for s in good_solutions)
-            # mean_cost = total_cost / self.solution_depth
-            # print(mean_cost)
         best_solution = self.get_best_solution()
-        end_time = time.perf_counter()
-        total_time = round(end_time - start_time, 2)
-        print('~~~ Best Solution ~~~')
-        print(best_solution)
-        print('~~~ Statistics ~~~')
-        print('Number of Explored Solutions: ' + str(len(self.best_solutions)))
-        print('Number of Explore Calls: ' + str(self.num_explore_calls))
-        print('Processing Time: ' + str(total_time) + ' seconds')
+        self.end_time = time.perf_counter()
+        total_time = self.end_time - self.start_time
+        if self.final_stats:
+            print(' ~~~ Best Solution ~~~ ')
+            print(best_solution)
+            print(' ~~~ Statistics ~~~ ')
+            print('Number of Explored Solutions: ' + str(len(self.best_solutions)))
+            print('Number of Explore Calls: ' + str(self.num_explore_calls))
+            print('Processing Time: ' + str(round(total_time, 2)) + ' seconds')
         return best_solution.path, best_solution.dropoffs
 
     def generate_min_solution(self):
@@ -214,8 +225,10 @@ class Solver:
         self.add_solution(candidate_solution)
 
     def add_solution(self, solution):
-        if not solution.hash in self.known_solutions:
-            # print(solution)
+        self.stop_exploring()
+        if self.stop or not solution.hash in self.known_solutions:
+            if self.live_update:
+                print(solution)
             self.num_known_solutions += 1
             self.known_solutions.update({solution.hash:solution})
             heapq.heappush(self.best_solutions, solution)
@@ -224,7 +237,7 @@ class Solver:
         return heapq.nsmallest(n_best, self.best_solutions)
 
     def get_best_solution(self):
-        return heapq.heappop(self.best_solutions)
+        return self.get_best_solutions(1)[0]
 
     def all_explored(self, solutions):
         all_solutions_explored = True
@@ -296,21 +309,22 @@ class Solver:
     def explore_up(self, solution):
         # adds solutions with one additional stop/detour to solution space
         valid_locations = set(self.locations) - set(solution.path)
-        num_candidate_locations = min(10, len(set(valid_locations)))
+        num_candidate_locations = int(min(self.search_multiplier, len(set(valid_locations))))
         candidate_locations = set(random.sample(valid_locations, num_candidate_locations))
         if len(candidate_locations) > 0:
             for location in candidate_locations:
-                candidate_path = self.find_best_path_addition(solution.path, location)
-                candidate_dropoffs = self.find_best_dropoffs(candidate_path)
-                candidate_solution = Solution(self.graph, candidate_path, candidate_dropoffs)
-                self.add_solution(candidate_solution)
+                if not self.stop:
+                    candidate_path = self.find_best_path_addition(solution.path, location)
+                    candidate_dropoffs = self.find_best_dropoffs(candidate_path)
+                    candidate_solution = Solution(self.graph, candidate_path, candidate_dropoffs)
+                    self.add_solution(candidate_solution)
 
     def explore_down(self, solution):
         # adds solutions with one less stop/detour to solution space
-        num_candidate_locations = min(10, len(set(solution.path)))
-        candidate_locations = set(random.sample(set(solution.path), num_candidate_locations))
+        num_candidate_locations = int(min(self.search_multiplier, len(set(solution.path))))
+        candidate_locations = set(random.sample(set(solution.path), num_candidate_locations)) - {self.start}
         for location in candidate_locations:
-            if location in solution.dropoffs.keys():
+            if location in solution.dropoffs.keys() and not self.stop:
                 index = solution.path.index(location)
                 previous_node_index = self.previous_stop(solution, index)
                 previous_node = solution.path[previous_node_index]
@@ -327,34 +341,35 @@ class Solver:
     def explore_across(self, solution):
         # adds soutions with same number of stops/detours to solution space
         valid_new_locations = set(self.locations) - set(solution.path)
-        num_candidate_new_locations = min(3, len(set(valid_new_locations)))
-        valid_old_locations = set(solution.path)
-        num_candidate_old_locations = min(3, len(set(valid_old_locations)))
+        num_candidate_new_locations = int(min(np.sqrt(self.search_multiplier), len(set(valid_new_locations))))
+        valid_old_locations = set(solution.path) - {self.start}
+        num_candidate_old_locations = int(min(np.sqrt(self.search_multiplier), len(set(valid_old_locations))))
         candidate_new_locations = set(random.sample(valid_new_locations, num_candidate_new_locations))
         candidate_old_locations = set(random.sample(valid_old_locations, num_candidate_old_locations))
         for old_location in candidate_old_locations:
             for new_location in candidate_new_locations:
-                index = solution.path.index(old_location)
-                previous_node_index = self.previous_stop(solution, index)
-                previous_node = solution.path[previous_node_index]
-                next_node_index = self.next_stop(solution, index)
-                next_node = solution.path[next_node_index]
-                shortcut = nx.shortest_path(self.graph, previous_node, next_node)
-                path_start = solution.path[:previous_node_index]
-                path_end = solution.path[next_node_index - 1:]
-                shortened_path = path_start + shortcut + path_end
-                candidate_path = self.find_best_path_addition(shortened_path, new_location)
-                candidate_dropoffs = self.find_best_dropoffs(candidate_path)
-                candidate_solution = Solution(self.graph, candidate_path, candidate_dropoffs)
-                self.add_solution(candidate_solution)
+                if not self.stop:
+                    index = solution.path.index(old_location)
+                    previous_node_index = self.previous_stop(solution, index)
+                    previous_node = solution.path[previous_node_index]
+                    next_node_index = self.next_stop(solution, index)
+                    next_node = solution.path[next_node_index]
+                    shortcut = nx.shortest_path(self.graph, previous_node, next_node)
+                    path_start = solution.path[:previous_node_index]
+                    path_end = solution.path[next_node_index - 1:]
+                    shortened_path = path_start + shortcut + path_end
+                    candidate_path = self.find_best_path_addition(shortened_path, new_location)
+                    candidate_dropoffs = self.find_best_dropoffs(candidate_path)
+                    candidate_solution = Solution(self.graph, candidate_path, candidate_dropoffs)
+                    self.add_solution(candidate_solution)
 
-    def explore(self, solution):
-        self.num_explore_calls += 1
+    def explore(self, solution):        
         # explores the given solution
-        if solution.explored:
+        self.stop_exploring()
+        self.num_explore_calls += 1
+        if solution.explored or self.stop:
             pass
         else:
-            # print(solution)
             solution.explored = True
             self.explore_up(solution)
             self.explore_down(solution)
@@ -364,6 +379,14 @@ class Solver:
         # explores all solutions in given set or list
         for solution in solutions.copy():
             self.explore(solution)
+    
+    def stop_exploring(self):
+        if time.perf_counter() - self.start_time > 1000:
+            self.stop = True
+        if time.perf_counter() - self.start_time > 180:
+            best_solution_so_far = self.get_best_solution()
+            if best_solution_so_far.hash in self.seeding_solutions:
+                self.stop = True
 
 def add_to_dropoffs(dropoffs, location, home):
     # adds a dropoff to a given dropoffs dictionary
