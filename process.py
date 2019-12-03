@@ -1,237 +1,302 @@
-from student_utils import *
 import heapq
 import time
 import random
 import numpy as np
 import networkx as nx
-
-class Solution:
-    # allows for easier analysis of solutions
-    def __init__(self, graph, path, dropoffs):
-        self.setup_parameters()
-        self.graph = graph
-        self.path = path
-        self.dropoffs = dropoffs
-        self.hash_string = self.generate_hash()
-        self.hash = self.__hash__()
-        self.cost = self.find_cost()
-        self.explored = False
-        self.tags = {}
-
-    def __lt__(self, other):
-        return self.cost < other.cost
-
-    def __le__(self, other):
-        return self.cost <= other.cost
-
-    def __eq__(self, other):
-        return self.hash == other
-
-    def __ne__(self, other):
-        return self.hash != other
-
-    def __gt__(self, other):
-        return self.cost > other.cost
-
-    def __ge__(self, other):
-        return self.cost >= other.cost
-
-    def __hash__(self):
-        return self.hash_string.__hash__()
-
-    def __str__(self):
-        return_string = '('
-        if self.print_path:
-            return_string += ' path: ' + str(self.path) + ' '
-        if self.print_cost:
-            return_string += ' cost: ' + str(round(self.cost, 2)) + ' '
-        if self.print_dropoffs:
-            return_string += ' dropoffs: ' + str(self.dropoffs) + ' '
-        return_string += ')'
-        return return_string
-
-    def setup_parameters(self):
-        self.print_path = True
-        self.print_cost = True
-        self.print_dropoffs = False
-
-    def find_cost(self):
-        cost_given = cost_of_solution(self.graph, self.path, self.dropoffs)
-        if cost_given[0] == 'infinite':
-            return np.inf
-        else:
-            return cost_given[0]
-
-    def tag(self, key, entry):
-        self.tags.update({key:entry})
-
-    def get_tag(self, key):
-        # explored tag
-        # home tag
-        return self.tags[key]
-
-    def generate_hash(self):
-        dropoff_locations = list(self.dropoffs.keys())
-        dropoff_locations.sort()
-        hash_string = ''
-        for location in self.path:
-            hash_string += int_to_chr(location)
-        hash_string += chr(600)
-        for location in dropoff_locations:
-            hash_string += int_to_chr(location)
-            homes_dropped_off = self.dropoffs[location]
-            homes_dropped_off.sort()
-            for home in homes_dropped_off:
-                hash_string += int_to_chr(home)
-            hash_string += chr(600)
-        return hash_string
+from solution import Solution
 
 class Solver:
-    def __init__(self, list_of_locations, list_of_homes, starting_car_location, adjacency_matrix, params=['10']):
-        self.explore_updates = False
-        self.live_update = False
-        self.final_stats = True
-        self.known_solutions = {}
-        self.best_solutions = []
+    def __init__(self, list_of_locations, list_of_homes, starting_car_location, adjacency_matrix):
+        self.run = True
+        self.stop_reason = 'Still running.'
+        self.setup_input_information(list_of_locations, list_of_homes, starting_car_location, adjacency_matrix)
+        self.setup_monitoring()
+        self.setup_display()
+        self.setup_data()
+        self.setup_solving_paramaters()
+
+    def setup_input_information(self, list_of_locations, list_of_homes, starting_car_location, adjacency_matrix):
         self.location_names = list_of_locations
         self.home_names = list_of_homes
-        self.num_locations = len(self.location_names)
-        self.num_homes = len(self.home_names)
+        self.location_count = len(list_of_locations)
+        self.home_count = len(list_of_homes)
         self.start_name = starting_car_location
         self.adjacency_matrix = adjacency_matrix
-        self.start = self.location_names.index(starting_car_location)
-        self.graph, adj_message = adjacency_matrix_to_graph(adjacency_matrix)
-        self.locations = []
-        self.homes = []
-        self.num_explore_calls = 0
-        self.num_known_solutions = 0
+        self.start = list_of_locations.index(starting_car_location)
+        self.setup_locations()
+        self.setup_homes()
+        self.setup_graph()
+
+    def setup_locations(self):
+        self.locations = set([])
         for name in self.location_names:
-            self.locations.append(self.location_names.index(name))
+            self.locations.add(self.location_names.index(name))
+
+    def setup_homes(self):
+        self.homes = set([])
         for name in self.home_names:
-            self.homes.append(self.location_names.index(name))
-        self.apply_parameters(params)
+            self.homes.add(self.location_names.index(name))
 
-    def apply_parameters(self, params):
-        solution_depth = 1500 / self.num_locations
-        self.initial_depth = solution_depth
+    def setup_monitoring(self):
+        self.calculated_solutions_count = 0
+        self.explored_solutions_count = 0
+
+    def setup_graph(self):
+        adjacency_matrix_formatted = [[0 if entry == 'x' else entry for entry in row] for row in self.adjacency_matrix]
+        for i in range(len(adjacency_matrix_formatted)):
+            adjacency_matrix_formatted[i][i] = 0
+        self.graph = nx.convert_matrix.from_numpy_matrix(np.matrix(adjacency_matrix_formatted))
+        self.graph_paths = dict(nx.all_pairs_shortest_path(self.graph))
+        self.graph_lengths = dict(nx.all_pairs_shortest_path_length(self.graph))
         self.density = nx.density(self.graph)
-        self.final_depth = 2
-        self.energy_level = 0
-        self.search_multiplier = 10
-        self.initial_temperature = 36 * self.num_locations
-        if self.num_locations > 100:
-            self.initial_temperature = self.initial_temperature * 2
-            self.search_multiplier = 5
-        self.temperature = self.initial_temperature
-        self.cooling_rate = 0
-        self.update_explore_depth()
-        self.stop = False
 
-    def update_explore_depth(self):
-        self.energy_level = self.num_known_solutions / self.density
-        self.explore_depth = int(max([self.initial_depth * np.exp(- self.energy_level / self.temperature), self.final_depth]))
-        if self.explore_updates:
-            print('---')
-            print('current energy level: ' + str(self.energy_level))
-            print('current temperature: ' + str(self.temperature))
-            print('current explore depth: ' + str(self.explore_depth))
-        self.temperature = max(1, self.temperature - self.temperature * self.cooling_rate)
+    def setup_display(self):
+        self.explore_updates = False
+        self.explore_conditions = True
+        self.solution_updates = False
+        self.final_stats = True
 
-    def solve(self):
-        # generates seeding solutions and then makes explore calls around them
+    def setup_data(self):
+        self.known_solutions = {}
+        self.best_solutions = []
+
+    def setup_solving_paramaters(self):
+        if self.location_count < 51:
+            self.size = 's'
+        elif self.location_count < 101:
+            self.size = 'm'
+        else:
+            self.size = 'l'
+        temperatures = {'s':1800, 'm':3000, 'l':3000}
+        max_runtimes = {'s':120, 'm':200, 'l':400}
+        initial_explore_depths = {'s':30, 'm':15, 'l':8}
+        final_explore_depths = {'s':3, 'm':3, 'l':3}
+        seeding_intervals = {'s':25, 'm':15, 'l':10}
+        seeding_minimums = {'s':25, 'm':50, 'l':10}
+        random_up_search_radii = {'s':10, 'm':25, 'l':5}
+        random_down_search_radii = {'s':10, 'm':25, 'l':5}
+        random_across_search_radii = {'s':10, 'm':25, 'l':5}
+        random_cycle_improvement_radii = {'s':10, 'm':25, 'l':15}
+        random_dropoff_home_radii = {'s':50, 'm':10, 'l':10}
+        random_dropoff_location_radii = {'s':50, 'm':10, 'l':10}
+        self.temperature = temperatures[self.size]
+        self.max_runtime = max_runtimes[self.size]
+        self.initial_explore_depth = initial_explore_depths[self.size]
+        self.final_explore_depth = final_explore_depths[self.size]
+        self.seeding_interval = seeding_intervals[self.size]
+        self.seeding_minimum = seeding_minimums[self.size]
+        self.random_up_search_radius = random_up_search_radii[self.size]
+        self.random_down_search_radius = random_down_search_radii[self.size]
+        self.random_across_search_radius = random_across_search_radii[self.size]
+        self.random_cycle_improvement_radius = random_cycle_improvement_radii[self.size]
+        self.random_dropoff_home_radius = random_dropoff_home_radii[self.size]
+        self.random_dropoff_location_radius = random_dropoff_location_radii[self.size]
+
+    def solve_for_input(self):
         self.start_time = time.perf_counter()
-        self.seeding_solutions = {}
-        self.generate_max_solution()
-        self.generate_mid_solution()
-        if self.num_locations < 101:
-            self.generate_min_solution()
-        self.seeding_solutions = self.known_solutions.copy()
-        good_solutions = self.get_best_solutions(self.explore_depth)
-        while self.stop or not self.all_explored(good_solutions):
-            self.stop_exploring()
-            self.explore_all(good_solutions)
-            self.update_explore_depth()
-            good_solutions = self.get_best_solutions(self.explore_depth)
+        self.time_check = self.start_time
+        self.generate_seeding_solutions()
+        while self.run:
+            self.search()
         best_solution = self.get_best_solution()
-        self.end_time = time.perf_counter()
-        total_time = self.end_time - self.start_time
+        self.total_time = time.perf_counter() - self.start_time
         if self.final_stats:
-            print(' ~~~ Best Solution ~~~ ')
-            print(best_solution)
-            print(' ~~~ Statistics ~~~ ')
-            print('Number of Explored Solutions: ' + str(len(self.best_solutions)))
-            print('Number of Explore Calls: ' + str(self.num_explore_calls))
-            print('Processing Time: ' + str(round(total_time, 2)) + ' seconds')
-        return best_solution.path, best_solution.dropoffs
+            self.print_stats()
+        return best_solution.full_path, best_solution.dropoffs
+
+    def generate_seeding_solutions(self):
+        self.generate_min_solution()
+        self.generate_mid_solution()
+        self.generate_max_solution()
 
     def generate_min_solution(self):
-        # generates all solutions with students dropped off at one location
-        for location in self.locations:
+        candidate_locations = random.sample(list(self.locations), min(self.seeding_minimum, self.location_count))
+        for location in candidate_locations:
             if location == self.start:
-                path = [location, location]
+                new_core_path = [self.start, self.start]
             else:
-                path = nx.shortest_path(self.graph, source=self.start, target=location)
-                path += nx.shortest_path(self.graph, source=location, target=self.start)[1:]
-            all_locations = self.locations.copy()
-            dropoffs = {location:all_locations}
-            solution = Solution(self.graph, path, dropoffs)
-            self.add_solution(solution)
-
-    def generate_max_solution(self):
-        # greedily generates solution where students are dropped off at all their houses
-        all_distances = dict(nx.all_pairs_dijkstra_path_length(self.graph))
-        greedy_path = [self.start]
-        current_location = self.start
-        homes_remaining = self.homes.copy()
-        homes_remaining.sort(key=lambda h: all_distances[current_location][h])
-        greedy_dropoffs = {}
-        while len(homes_remaining) > 0:
-            closest_home = homes_remaining.pop(0)
-            if closest_home != self.start:
-                path_extension = nx.shortest_path(self.graph, current_location, closest_home)[1:]
-                greedy_path += path_extension
-            current_location = closest_home
-            greedy_dropoffs.update({closest_home:[closest_home]})
-        if current_location != self.start:
-            path_extension = nx.shortest_path(self.graph, current_location, self.start)[1:]
-            greedy_path += path_extension
-        candidate_solution = Solution(self.graph, greedy_path, greedy_dropoffs)
-        self.add_solution(candidate_solution)
+                new_core_path = [self.start, location, self.start]
+            new_solution = Solution(self, new_core_path)
+            self.add_solution(new_solution)
 
     def generate_mid_solution(self):
-        # generates solutions in steps of five
-        for i in range(1,self.num_homes):
-            if i % 5 == 0:
-                self.generate_sized_solution(i)
+        solution_sizes = random.sample(list(range(1, self.home_count - 1)), min(self.home_count - 2, self.seeding_interval))
+        for size in solution_sizes:
+            stops = set(random.sample(list(self.locations - {self.start}), min(size, len(self.locations) - 1)))
+            new_core_path = self.make_path(stops)
+            new_solution = Solution(self, new_core_path)
+            self.add_solution(new_solution)
 
-    def generate_sized_solution(self, size):
-        # greedily generates solution of given size where students are dropped off at all their houses
-        all_distances = dict(nx.all_pairs_dijkstra_path_length(self.graph))
-        greedy_path = [self.start]
-        current_location = self.start
-        homes_remaining = random.sample(self.homes, size)
-        homes_remaining.sort(key=lambda h: all_distances[current_location][h])
-        while len(homes_remaining) > 0:
-            closest_home = homes_remaining.pop(0)
-            if closest_home != self.start:
-                path_extension = nx.shortest_path(self.graph, current_location, closest_home)[1:]
-                greedy_path += path_extension
-            current_location = closest_home
-        if current_location != self.start:
-            path_extension = nx.shortest_path(self.graph, current_location, self.start)[1:]
-            greedy_path += path_extension
-        dropoffs = self.find_best_dropoffs(greedy_path)
-        candidate_solution = Solution(self.graph, greedy_path, dropoffs)
-        self.add_solution(candidate_solution)
+    def generate_max_solution(self):
+        new_core_path = self.make_path(set(self.locations))
+        new_solution = Solution(self, new_core_path)
+        self.add_solution(new_solution)
+
+    def print_stats(self):
+        print('')
+        print(' ~~~ Best Solution ~~~ ')
+        print(self.get_best_solution())
+        print('')
+        print(' ~~~ Statistics ~~~ ')
+        print('Number of Calculated Solutions: ' + str(self.calculated_solutions_count))
+        print('Number of Explore Calls: ' + str(self.explored_solutions_count))
+        print('Processing Time: ' + str(self.total_time) + ' seconds')
+        print('Ending Reason: ' + self.stop_reason)
+        print('')
+
+    def search(self):
+        self.update_search_conditions()
+        candidate_solutions = self.get_best_solutions(self.explore_depth)
+        if all([s.explored for s in candidate_solutions]):
+            self.run = False
+            self.stop_reason = 'Exploration limit reached.'
+        self.explore_all(candidate_solutions)
+
+    def update_search_conditions(self):
+        self.check_time()
+        self.energy_level = self.calculated_solutions_count / self.density
+        self.explore_depth = int(((self.initial_explore_depth - self.final_explore_depth) * np.exp( - self.energy_level / self.temperature)) + self.final_explore_depth)
+        if self.explore_conditions:
+            print('Current Explore Conditions:')
+            print(' - Energy Level: ' + str(self.energy_level))
+            print(' - Explore Depth: ' + str(self.explore_depth))
+            print(' - Current Best: ' + str(self.get_best_solution()))
+            print(' - Previous Explore Time: ' + str(round(time.perf_counter() - self.time_check, 2)))
+            self.time_check = time.perf_counter()
+
+    def check_time(self):
+        if time.perf_counter() - self.start_time > self.max_runtime and self.run:
+            self.run = False
+            self.stop_reason = 'Time limit reached.'
+
+    def explore(self, solution):
+        if not solution.explored:
+            solution.explored = True
+            self.explored_solutions_count += 1
+            if self.explore_updates:
+                print('explore up on ' + str(solution))
+            self.explore_up(solution)
+            if self.explore_updates:
+                print('explore across on ' + str(solution))
+            self.explore_across(solution)
+            if self.explore_updates:
+                print('explore down on ' + str(solution))
+            self.explore_down(solution)
+
+    def explore_all(self, solutions):
+        i = 0
+        self.check_time()
+        while i < len(solutions) and self.run:
+            self.explore(solutions[i])
+            i += 1
+
+    def explore_up(self, solution):
+        # increase |D| by 1
+        current_stops = set(solution.dropoffs.keys())
+        available_stops = self.locations - current_stops
+        candidate_stops = random.sample(list(available_stops), min(self.random_up_search_radius, len(available_stops)))
+        i = 0
+        self.check_time()
+        while i < len(candidate_stops) and self.run:
+            new_stop = candidate_stops[i]
+            new_core_path = self.add_to_path(solution.core_path, new_stop)
+            new_solution = Solution(self, new_core_path)
+            self.add_solution(new_solution)
+            self.check_time()
+            i += 1
+
+    def explore_down(self, solution):
+        # decrease |D| by 1
+        current_stops = set(solution.dropoffs.keys()) - {self.start}
+        candidate_stops = random.sample(list(current_stops), min(self.random_down_search_radius, len(current_stops)))
+        i = 0
+        self.check_time()
+        while i < len(candidate_stops) and self.run:
+            new_core_path = self.remove_from_path(solution.core_path, candidate_stops[i])
+            new_solution = Solution(self, new_core_path)
+            self.add_solution(new_solution)
+            self.check_time()
+            i += 1
+
+    def explore_across(self, solution):
+        # exchange an element of D for an element of L without changing |D|
+        current_stops = set(solution.dropoffs.keys())
+        available_new_stops = self.locations - current_stops
+        available_old_stops = current_stops - {self.start}
+        candidate_new_stops = random.sample(list(available_new_stops), min(self.random_across_search_radius, len(available_new_stops)))
+        candidate_old_stops = random.sample(list(available_old_stops), min(self.random_across_search_radius, len(available_old_stops)))
+        i = 0
+        self.check_time()
+        while i < len(candidate_old_stops) and self.run:
+            j = 0
+            while j < len(candidate_new_stops) and self.run:
+                new_core_path = [candidate_new_stops[j] if x==candidate_old_stops[i] else x for x in solution.core_path]
+                new_solution = Solution(self, new_core_path)
+                self.add_solution(new_solution)
+                self.check_time()
+                j += 1
+            i += 1
+
+    def tweak_path(self, solution):
+        # echange the ordering that elements of D are visited by P without changing |D|
+        swap_indices = random.sample(list(range(0, len(solution.core_path))), min(self.random_cycle_improvement_radius, len(solution.core_path)))
+        i = 0
+        self.check_time()
+        while i < len(swap_indices) and self.run:
+            j = 0
+            while j < len(solution.core_path) - swap_indices[i] and self.run:
+                start_index = swap_indices[i]
+                end_index = j + start_index
+                path_start = solution.core_path[1:start_index]
+                path_end = solution.core_path[end_index - 1:]
+                path_middle = solution.core_path[start_index:end_index - 1].reverse()
+                new_core_path = path_start + path_middle + path_end
+                new_dropoffs = solution.dropoffs
+                new_solution = Solution(self, new_core_path, new_dropoffs)
+                self.add_solution(new_solution)
+                self.check_time()
+                j += 1
+            i += 1
+
+    def add_to_path(self, core_path, location):
+        extra_distance = {}
+        for i in range(1, len(core_path)):
+            pre_stop = core_path[i - 1]
+            post_stop = core_path[i]
+            pre_distance = self.graph_lengths[pre_stop][location]
+            post_distance = self.graph_lengths[location][post_stop]
+            extra_distance.update({i:pre_distance + post_distance})
+        insertion_index = min(extra_distance.keys(), key=lambda i: extra_distance[i])
+        new_core_path = core_path[:insertion_index] + [location] + core_path[insertion_index:]
+        return new_core_path
+
+    def remove_from_path(self, core_path, location):
+        if location == self.start:
+            new_core_path = core_path.copy()
+        elif location in core_path:
+            new_core_path = core_path.copy()
+            new_core_path.remove(location)
+        else:
+            new_core_path = core_path.copy()
+        return new_core_path
+
+    def make_path(self, stops):
+        # make P using greedy heuristics given D
+        core_path = [self.start]
+        stops_remaining = stops - {self.start}
+        while len(stops_remaining) > 0:
+            next_stop = min(stops_remaining, key=lambda d: self.graph_lengths[core_path[-1]][d])
+            stops_remaining -= {next_stop}
+            core_path.append(next_stop)
+        core_path.append(self.start)
+        return core_path
 
     def add_solution(self, solution):
-        self.stop_exploring()
-        if self.stop or not solution.hash in self.known_solutions:
-            if self.live_update:
-                print(solution)
-            self.num_known_solutions += 1
-            self.known_solutions.update({solution.hash:solution})
-            heapq.heappush(self.best_solutions, solution)
+        if self.solution_updates:
+            print(solution)
+        self.calculated_solutions_count += 1
+        self.known_solutions.update({solution.hash:solution})
+        heapq.heappush(self.best_solutions, solution)
 
     def get_best_solutions(self, n_best):
         return heapq.nsmallest(n_best, self.best_solutions)
@@ -239,174 +304,6 @@ class Solver:
     def get_best_solution(self):
         return self.get_best_solutions(1)[0]
 
-    def all_explored(self, solutions):
-        all_solutions_explored = True
-        for solution in solutions:
-            if not solution.explored:
-                all_solutions_explored = False
-        return all_solutions_explored
-    
-    def find_best_dropoffs(self, path):
-        dropoffs = {}
-        max_num_locations = min(len(set(path)), 15)
-        homes_to_optimize = self.homes.copy()
-        for home in homes_to_optimize:
-            other_homes = self.homes.copy()
-            other_homes.remove(home)
-            location_distances = {}
-            for location in random.sample(path, max_num_locations):
-                location_distances.update({location:nx.shortest_path_length(self.graph, location, home)})
-            best_location = min(location_distances.keys(), key=(lambda l: location_distances[l]))
-            add_to_dropoffs(dropoffs, best_location, home)
-        return dropoffs
-
-    def find_best_path_addition(self, path, location):
-        index_distances = {}
-        for i in range(1, len(path) - 1):
-            previous_location = path[i - 1]
-            next_location = path[i]
-            distance_to = nx.shortest_path_length(self.graph, previous_location, location)
-            distance_from = nx.shortest_path_length(self.graph, location, next_location)
-            total_added_distance = distance_to + distance_from
-            index_distances.update({i:total_added_distance})
-        if len(index_distances.keys()) > 0:
-            target_index = min(index_distances.keys(), key=(lambda k: index_distances[k]))
-            path_before = path[:target_index]
-            path_after = path[target_index:]
-            path_to = nx.shortest_path(self.graph, source=path[target_index - 1], target=location)[1:]
-            path_from = nx.shortest_path(self.graph, source=location, target=path[target_index])[1:-1]
-            new_path = path_before + path_to + path_from + path_after
-        else:
-            new_path = path
-        return new_path
-
-    def previous_stop(self, solution, index):
-        # returns index of last visited stop location before the given index
-        stop = self.start
-        iterate = True
-        while iterate:
-            index -= 1
-            if solution.path[index] in self.homes:
-                stop = solution.path[index]
-                iterate = False
-            if index <= 0:
-                iterate = False
-        return solution.path.index(stop)
-
-    def next_stop(self, solution, index):
-        # returns index of next visited stop location after the given index
-        stop = self.start
-        iterate = True
-        while iterate:
-            index += 1
-            if solution.path[index] in self.homes:
-                stop = solution.path[index]
-                iterate = False
-            if index >= len(solution.path) - 1:
-                iterate = False
-        return solution.path.index(stop)
-
-    def explore_up(self, solution):
-        # adds solutions with one additional stop/detour to solution space
-        valid_locations = set(self.locations) - set(solution.path)
-        num_candidate_locations = int(min(self.search_multiplier, len(set(valid_locations))))
-        candidate_locations = set(random.sample(valid_locations, num_candidate_locations))
-        if len(candidate_locations) > 0:
-            for location in candidate_locations:
-                if not self.stop:
-                    candidate_path = self.find_best_path_addition(solution.path, location)
-                    candidate_dropoffs = self.find_best_dropoffs(candidate_path)
-                    candidate_solution = Solution(self.graph, candidate_path, candidate_dropoffs)
-                    self.add_solution(candidate_solution)
-
-    def explore_down(self, solution):
-        # adds solutions with one less stop/detour to solution space
-        num_candidate_locations = int(min(self.search_multiplier, len(set(solution.path))))
-        candidate_locations = set(random.sample(set(solution.path), num_candidate_locations)) - {self.start}
-        for location in candidate_locations:
-            if location in solution.dropoffs.keys() and not self.stop:
-                index = solution.path.index(location)
-                previous_node_index = self.previous_stop(solution, index)
-                previous_node = solution.path[previous_node_index]
-                next_node_index = self.next_stop(solution, index)
-                next_node = solution.path[next_node_index]
-                shortcut = nx.shortest_path(self.graph, previous_node, next_node)
-                path_start = solution.path[:previous_node_index]
-                path_end = solution.path[next_node_index - 1:]
-                candidate_path = path_start + shortcut + path_end
-                candidate_dropoffs = self.find_best_dropoffs(candidate_path)
-                candidate_solution = Solution(self.graph, candidate_path, candidate_dropoffs)
-                self.add_solution(candidate_solution)
-
-    def explore_across(self, solution):
-        # adds soutions with same number of stops/detours to solution space
-        valid_new_locations = set(self.locations) - set(solution.path)
-        num_candidate_new_locations = int(min(np.sqrt(self.search_multiplier), len(set(valid_new_locations))))
-        valid_old_locations = set(solution.path) - {self.start}
-        num_candidate_old_locations = int(min(np.sqrt(self.search_multiplier), len(set(valid_old_locations))))
-        candidate_new_locations = set(random.sample(valid_new_locations, num_candidate_new_locations))
-        candidate_old_locations = set(random.sample(valid_old_locations, num_candidate_old_locations))
-        for old_location in candidate_old_locations:
-            for new_location in candidate_new_locations:
-                if not self.stop:
-                    index = solution.path.index(old_location)
-                    previous_node_index = self.previous_stop(solution, index)
-                    previous_node = solution.path[previous_node_index]
-                    next_node_index = self.next_stop(solution, index)
-                    next_node = solution.path[next_node_index]
-                    shortcut = nx.shortest_path(self.graph, previous_node, next_node)
-                    path_start = solution.path[:previous_node_index]
-                    path_end = solution.path[next_node_index - 1:]
-                    shortened_path = path_start + shortcut + path_end
-                    candidate_path = self.find_best_path_addition(shortened_path, new_location)
-                    candidate_dropoffs = self.find_best_dropoffs(candidate_path)
-                    candidate_solution = Solution(self.graph, candidate_path, candidate_dropoffs)
-                    self.add_solution(candidate_solution)
-
-    def explore(self, solution):        
-        # explores the given solution
-        self.stop_exploring()
-        self.num_explore_calls += 1
-        if solution.explored or self.stop:
-            pass
-        else:
-            solution.explored = True
-            self.explore_up(solution)
-            self.explore_down(solution)
-            self.explore_across(solution)
-
-    def explore_all(self, solutions):
-        # explores all solutions in given set or list
-        for solution in solutions.copy():
-            self.explore(solution)
-    
-    def stop_exploring(self):
-        if time.perf_counter() - self.start_time > 1000:
-            self.stop = True
-        if time.perf_counter() - self.start_time > 180:
-            best_solution_so_far = self.get_best_solution()
-            if best_solution_so_far.hash in self.seeding_solutions:
-                self.stop = True
-
-def add_to_dropoffs(dropoffs, location, home):
-    # adds a dropoff to a given dropoffs dictionary
-    if not location in dropoffs.keys():
-        dropoffs.update({location:[]})
-    dropoffs[location].append(home)
-
-def int_to_chr(i):
-    i += 33
-    if i > 126:
-        i += 65
-    return chr(i)
-
-def chr_to_int(c):
-    i = ord(c)
-    if i > 192:
-        i -= 65
-    i -= 33
-    return i
-
 def solve(list_of_locations, list_of_homes, starting_car_location, adjacency_matrix, params=['10']):
-    solver = Solver(list_of_locations, list_of_homes, starting_car_location, adjacency_matrix, params)
-    return solver.solve()
+    solver = Solver(list_of_locations, list_of_homes, starting_car_location, adjacency_matrix)
+    return solver.solve_for_input()
