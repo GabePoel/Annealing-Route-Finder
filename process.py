@@ -3,11 +3,13 @@ import time
 import random
 import numpy as np
 import networkx as nx
+import os
 from solution import Solution
 
 class Solver:
-    def __init__(self, list_of_locations, list_of_homes, starting_car_location, adjacency_matrix):
+    def __init__(self, list_of_locations, list_of_homes, starting_car_location, adjacency_matrix, input_file):
         self.run = True
+        self.file = input_file
         self.stop_reason = 'Still running.'
         self.setup_input_information(list_of_locations, list_of_homes, starting_car_location, adjacency_matrix)
         self.setup_monitoring()
@@ -68,11 +70,11 @@ class Solver:
         else:
             self.size = 'l'
         temperatures = {'s':1800, 'm':3000, 'l':3000}
-        max_runtimes = {'s':120, 'm':200, 'l':400}
-        initial_explore_depths = {'s':30, 'm':15, 'l':8}
+        max_runtimes = {'s':500, 'm':2000, 'l':3000}
+        initial_explore_depths = {'s':30, 'm':15, 'l':15}
         final_explore_depths = {'s':3, 'm':3, 'l':3}
-        seeding_intervals = {'s':25, 'm':15, 'l':10}
-        seeding_minimums = {'s':25, 'm':50, 'l':10}
+        seeding_intervals = {'s':25, 'm':15, 'l':25}
+        seeding_minimums = {'s':25, 'm':50, 'l':25}
         random_up_search_radii = {'s':10, 'm':25, 'l':5}
         random_down_search_radii = {'s':10, 'm':25, 'l':5}
         random_across_search_radii = {'s':10, 'm':25, 'l':5}
@@ -96,10 +98,12 @@ class Solver:
         self.start_time = time.perf_counter()
         self.time_check = self.start_time
         self.generate_seeding_solutions()
+        self.initial_cost = self.get_best_solution().cost
         while self.run:
             self.search()
         best_solution = self.get_best_solution()
         self.total_time = time.perf_counter() - self.start_time
+        self.final_cost = self.get_best_solution().cost
         if self.final_stats:
             self.print_stats()
         return best_solution.full_path, best_solution.dropoffs
@@ -143,6 +147,33 @@ class Solver:
         print('Processing Time: ' + str(self.total_time) + ' seconds')
         print('Ending Reason: ' + self.stop_reason)
         print('')
+        print_file_location = os.path.join(os.getcwd(), 'output_results.txt')
+        print_file = open(print_file_location, 'a+')
+        print_file.write('\n')
+        print_file.write('\nData for ' + str(self.file) + ':')
+        print_file.write('\n - Input Size: ' + str(self.size))
+        print_file.write('\n - Temperature: ' + str(self.temperature))
+        print_file.write('\n - Max Runtime: ' + str(self.max_runtime))
+        print_file.write('\n - Initial Explore Depth: ' + str(self.initial_explore_depth))
+        print_file.write('\n - Final Explore Depth: ' + str(self.final_explore_depth))
+        print_file.write('\n - Seeding interval: ' + str(self.seeding_interval))
+        print_file.write('\n - Seeding Minimum: ' + str(self.seeding_minimum))
+        print_file.write('\n - Explore Up Radius: ' + str(self.random_up_search_radius))
+        print_file.write('\n - Explore Down Radius: ' + str(self.random_down_search_radius))
+        print_file.write('\n - Explore Across Radius: ' + str(self.random_across_search_radius))
+        print_file.write('\n - Cycle Improvement Radius: ' + str(self.random_cycle_improvement_radius))
+        print_file.write('\n - Droppoff Home Radius: ' + str(self.random_dropoff_home_radius))
+        print_file.write('\n - Dropoff Location Radius ' + str(self.random_dropoff_location_radius))
+        print_file.write('\nResults for ' + str(self.file))
+        print_file.write('\n - Best Solution: ' + str(self.get_best_solution()))
+        print_file.write('\n - Number of Calculated Solutions: ' + str(self.calculated_solutions_count))
+        print_file.write('\n - Number of Explore Calls: ' + str(self.explored_solutions_count))
+        print_file.write('\n - Processing Time: ' + str(self.total_time) + ' seconds')
+        print_file.write('\n - Ending Reason: ' + self.stop_reason)
+        print_file.write('\n - Initial Cost: ' + str(self.initial_cost))
+        print_file.write('\n - Final Cost: ' + str(self.final_cost))
+        print_file.write('\n - Cost Improvement ' + str(self.initial_cost - self.final_cost))
+        print_file.write('\n')
 
     def search(self):
         self.update_search_conditions()
@@ -304,6 +335,6 @@ class Solver:
     def get_best_solution(self):
         return self.get_best_solutions(1)[0]
 
-def solve(list_of_locations, list_of_homes, starting_car_location, adjacency_matrix, params=['10']):
-    solver = Solver(list_of_locations, list_of_homes, starting_car_location, adjacency_matrix)
+def solve(list_of_locations, list_of_homes, starting_car_location, adjacency_matrix, input_file):
+    solver = Solver(list_of_locations, list_of_homes, starting_car_location, adjacency_matrix, input_file)
     return solver.solve_for_input()

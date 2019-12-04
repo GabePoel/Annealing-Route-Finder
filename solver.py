@@ -8,8 +8,8 @@ import process
 
 from student_utils import *
 
-def solve(list_of_locations, list_of_homes, starting_car_location, adjacency_matrix, params=['10']):
-    return process.solve(list_of_locations, list_of_homes, starting_car_location, adjacency_matrix, params)
+def solve(list_of_locations, list_of_homes, starting_car_location, adjacency_matrix, input_file):
+    return process.solve(list_of_locations, list_of_homes, starting_car_location, adjacency_matrix, input_file)
     
 def convertToFile(path, dropoff_mapping, path_to_file, list_locs):
     string = ''
@@ -34,7 +34,7 @@ def solve_from_file(input_file, output_directory, params=[]):
 
     input_data = utils.read_file(input_file)
     num_of_locations, num_houses, list_locations, list_houses, starting_car_location, adjacency_matrix = data_parser(input_data)
-    car_path, drop_offs = solve(list_locations, list_houses, starting_car_location, adjacency_matrix, params=params)
+    car_path, drop_offs = solve(list_locations, list_houses, starting_car_location, adjacency_matrix, input_file)
 
     basename, filename = os.path.split(input_file)
     if not os.path.exists(output_directory):
