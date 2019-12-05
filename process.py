@@ -69,15 +69,15 @@ class Solver:
             self.size = 'm'
         else:
             self.size = 'l'
-        temperatures = {'s':1800, 'm':3000, 'l':3000}
-        max_runtimes = {'s':500, 'm':2000, 'l':3000}
-        initial_explore_depths = {'s':30, 'm':15, 'l':15}
-        final_explore_depths = {'s':3, 'm':3, 'l':3}
-        seeding_intervals = {'s':25, 'm':15, 'l':25}
-        seeding_minimums = {'s':25, 'm':50, 'l':25}
-        random_up_search_radii = {'s':10, 'm':25, 'l':5}
-        random_down_search_radii = {'s':10, 'm':25, 'l':5}
-        random_across_search_radii = {'s':10, 'm':25, 'l':5}
+        temperatures = {'s':1800, 'm':3000, 'l':6000}
+        max_runtimes = {'s':500, 'm':2000, 'l':5000}
+        initial_explore_depths = {'s':30, 'm':30, 'l':30}
+        final_explore_depths = {'s':3, 'm':4, 'l':6}
+        seeding_intervals = {'s':25, 'm':25, 'l':30}
+        seeding_minimums = {'s':25, 'm':50, 'l':50}
+        random_up_search_radii = {'s':10, 'm':25, 'l':10}
+        random_down_search_radii = {'s':10, 'm':25, 'l':10}
+        random_across_search_radii = {'s':25, 'm':25, 'l':25}
         random_cycle_improvement_radii = {'s':10, 'm':25, 'l':15}
         random_dropoff_home_radii = {'s':50, 'm':10, 'l':10}
         random_dropoff_location_radii = {'s':50, 'm':10, 'l':10}
