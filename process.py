@@ -124,7 +124,7 @@ class Solver:
             self.add_solution(new_solution)
 
     def generate_mid_solution(self):
-        solution_sizes = random.sample(list(range(1, self.home_count - 1)), min(self.home_count - 2, self.seeding_interval))
+        solution_sizes = random.sample(list(range(1, self.home_count - 1)), max(0, min(self.home_count - 2, self.seeding_interval)))
         for size in solution_sizes:
             stops = set(random.sample(list(self.locations - {self.start}), min(size, len(self.locations) - 1)))
             new_core_path = self.make_path(stops)
