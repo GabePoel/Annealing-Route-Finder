@@ -1,0 +1,1000 @@
+
+
+Data for input_batch_8/350_100.in:
+ - Input Size: m
+ - Temperature: 3000
+ - Max Runtime: 2000
+ - Initial Explore Depth: 15
+ - Final Explore Depth: 3
+ - Seeding interval: 15
+ - Seeding Minimum: 50
+ - Explore Up Radius: 25
+ - Explore Down Radius: 25
+ - Explore Across Radius: 25
+ - Cycle Improvement Radius: 25
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/350_100.in
+ - Best Solution: ( path: [36, 0, 8, 20, 21, 23, 86, 28, 35, 42, 46, 47, 56, 57, 58, 64, 67, 70, 73, 76, 82, 84, 87, 89, 96, 97, 36]  cost: 3425.51 )
+ - Number of Calculated Solutions: 8090
+ - Number of Explore Calls: 21
+ - Processing Time: 2000.2368744 seconds
+ - Ending Reason: Time limit reached.
+ - Initial Cost: 4452.392166666667
+ - Final Cost: 3425.5101999999997
+ - Cost Improvement 1026.8819666666677
+
+
+Data for input_batch_8/350_200.in:
+ - Input Size: l
+ - Temperature: 6000
+ - Max Runtime: 3000
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 50
+ - Explore Up Radius: 5
+ - Explore Down Radius: 5
+ - Explore Across Radius: 5
+ - Cycle Improvement Radius: 15
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/350_200.in
+ - Best Solution: ( path: [78, 49, 150, 78]  cost: 14542.2 )
+ - Number of Calculated Solutions: 1556
+ - Number of Explore Calls: 95
+ - Processing Time: 3000.2644168999996 seconds
+ - Ending Reason: Time limit reached.
+ - Initial Cost: 15319.255933333334
+ - Final Cost: 14542.196233333338
+ - Cost Improvement 777.0596999999962
+
+
+Data for input_batch_8/350_50.in:
+ - Input Size: s
+ - Temperature: 1800
+ - Max Runtime: 500
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 25
+ - Explore Up Radius: 10
+ - Explore Down Radius: 10
+ - Explore Across Radius: 10
+ - Cycle Improvement Radius: 10
+ - Droppoff Home Radius: 50
+ - Dropoff Location Radius 50
+Results for input_batch_8/350_50.in
+ - Best Solution: ( path: [1, 7, 0, 10, 4, 21, 25, 40, 45, 29, 44, 1]  cost: 714.61 )
+ - Number of Calculated Solutions: 5365
+ - Number of Explore Calls: 73
+ - Processing Time: 170.86369299999933 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 1038.4104666666667
+ - Final Cost: 714.6073666666666
+ - Cost Improvement 323.8031000000001
+
+
+Data for input_batch_8/351_100.in:
+ - Input Size: s
+ - Temperature: 1800
+ - Max Runtime: 500
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 25
+ - Explore Up Radius: 10
+ - Explore Down Radius: 10
+ - Explore Across Radius: 10
+ - Cycle Improvement Radius: 10
+ - Droppoff Home Radius: 50
+ - Dropoff Location Radius 50
+Results for input_batch_8/351_100.in
+ - Best Solution: ( path: [6, 7, 9, 13, 12, 8, 7, 6]  cost: 46.33 )
+ - Number of Calculated Solutions: 892
+ - Number of Explore Calls: 32
+ - Processing Time: 1.6898615000000063 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 56.0
+ - Final Cost: 46.33333333333333
+ - Cost Improvement 9.666666666666671
+
+
+Data for input_batch_8/351_200.in:
+ - Input Size: s
+ - Temperature: 1800
+ - Max Runtime: 500
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 25
+ - Explore Up Radius: 10
+ - Explore Down Radius: 10
+ - Explore Across Radius: 10
+ - Cycle Improvement Radius: 10
+ - Droppoff Home Radius: 50
+ - Dropoff Location Radius 50
+Results for input_batch_8/351_200.in
+ - Best Solution: ( path: [6, 7, 9, 13, 12, 8, 7, 6]  cost: 46.33 )
+ - Number of Calculated Solutions: 969
+ - Number of Explore Calls: 32
+ - Processing Time: 1.8225758999997197 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 55.0
+ - Final Cost: 46.33333333333333
+ - Cost Improvement 8.666666666666671
+
+
+Data for input_batch_8/351_50.in:
+ - Input Size: s
+ - Temperature: 1800
+ - Max Runtime: 500
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 25
+ - Explore Up Radius: 10
+ - Explore Down Radius: 10
+ - Explore Across Radius: 10
+ - Cycle Improvement Radius: 10
+ - Droppoff Home Radius: 50
+ - Dropoff Location Radius 50
+Results for input_batch_8/351_50.in
+ - Best Solution: ( path: [6, 7, 9, 13, 12, 8, 7, 6]  cost: 46.33 )
+ - Number of Calculated Solutions: 969
+ - Number of Explore Calls: 32
+ - Processing Time: 1.7994260999994367 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 56.0
+ - Final Cost: 46.33333333333333
+ - Cost Improvement 9.666666666666671
+
+
+Data for input_batch_8/352_100.in:
+ - Input Size: m
+ - Temperature: 3000
+ - Max Runtime: 2000
+ - Initial Explore Depth: 15
+ - Final Explore Depth: 3
+ - Seeding interval: 15
+ - Seeding Minimum: 50
+ - Explore Up Radius: 25
+ - Explore Down Radius: 25
+ - Explore Across Radius: 25
+ - Cycle Improvement Radius: 25
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/352_100.in
+ - Best Solution: ( path: [99, 4, 18, 61, 3, 6, 89, 44, 89, 99, 35, 37, 28, 37, 32, 5, 19, 23, 24, 1, 15, 14, 15, 88, 11, 13, 3, 20, 3, 53, 64, 85, 61, 34, 7, 22, 10, 79, 86, 79, 98, 21, 36, 37, 35, 95, 9, 51, 91, 31, 0, 29, 78, 16, 12, 81, 76, 54, 41, 46, 82, 50, 82, 96, 68, 55, 67, 92, 65, 87, 88, 11, 42, 59, 1, 24, 23, 58, 43, 17, 8, 2, 33, 38, 33, 48, 47, 34, 61, 69, 61, 3, 57, 52, 56, 30, 93, 39, 78, 40, 19, 26, 19, 45, 25, 45, 72, 71, 27, 71, 72, 45, 19, 60, 80, 76, 18, 63, 16, 22, 7, 84, 99, 68, 90, 54, 41, 56, 62, 56, 52, 57, 43, 17, 43, 57, 3, 6, 89, 99]  cost: 1417.0 )
+ - Number of Calculated Solutions: 7590
+ - Number of Explore Calls: 16
+ - Processing Time: 1893.7404194 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 1598.6666666666667
+ - Final Cost: 1417.0
+ - Cost Improvement 181.66666666666674
+
+
+Data for input_batch_8/352_200.in:
+ - Input Size: l
+ - Temperature: 6000
+ - Max Runtime: 3000
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 50
+ - Explore Up Radius: 5
+ - Explore Down Radius: 5
+ - Explore Across Radius: 5
+ - Cycle Improvement Radius: 15
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/352_200.in
+ - Best Solution: ( path: [199, 24, 10, 151, 48, 5, 39, 29, 7, 91, 12, 91, 15, 62, 94, 55, 3, 18, 3, 55, 83, 21, 59, 114, 11, 20, 60, 44, 166, 134, 53, 163, 17, 127, 25, 113, 1, 105, 77, 51, 160, 185, 84, 32, 120, 130, 35, 159, 68, 63, 22, 129, 19, 27, 2, 71, 158, 28, 197, 103, 67, 13, 101, 50, 123, 147, 123, 183, 52, 102, 45, 80, 45, 102, 97, 31, 97, 102, 64, 88, 176, 46, 47, 36, 107, 106, 42, 23, 117, 141, 197, 161, 109, 33, 40, 144, 73, 144, 186, 58, 192, 74, 156, 86, 14, 66, 30, 138, 89, 149, 87, 149, 121, 178, 93, 56, 93, 188, 38, 79, 177, 103, 81, 16, 145, 37, 124, 119, 4, 119, 78, 167, 115, 171, 125, 109, 57, 61, 57, 108, 13, 67, 34, 98, 8, 65, 76, 65, 8, 70, 134, 154, 188, 95, 189, 96, 9, 96, 174, 146, 142, 26, 54, 150, 49, 0, 49, 163, 75, 163, 17, 127, 110, 85, 99, 139, 181, 146, 142, 184, 6, 72, 193, 92, 43, 27, 169, 122, 169, 179, 169, 27, 19, 129, 22, 63, 143, 100, 136, 171, 167, 173, 74, 192, 116, 192, 74, 156, 86, 194, 16, 182, 133, 91, 137, 140, 137, 91, 7, 135, 132, 135, 7, 29, 39, 90, 39, 29, 24, 199, 82, 196, 190, 152, 69, 152, 190, 25, 113, 102, 45, 102, 64, 88, 176, 46, 47, 129, 185, 170, 187, 161, 197, 172, 149, 121, 178, 50, 123, 183, 195, 111, 195, 68, 159, 194, 16, 182, 35, 24, 199]  cost: 2516.0 )
+ - Number of Calculated Solutions: 752
+ - Number of Explore Calls: 20
+ - Processing Time: 1505.1525075 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 2812.6666666666665
+ - Final Cost: 2516.0
+ - Cost Improvement 296.6666666666665
+
+
+Data for input_batch_8/352_50.in:
+ - Input Size: s
+ - Temperature: 1800
+ - Max Runtime: 500
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 25
+ - Explore Up Radius: 10
+ - Explore Down Radius: 10
+ - Explore Across Radius: 10
+ - Cycle Improvement Radius: 10
+ - Droppoff Home Radius: 50
+ - Dropoff Location Radius 50
+Results for input_batch_8/352_50.in
+ - Best Solution: ( path: [49, 37, 47, 1, 24, 19, 34, 12, 34, 19, 38, 19, 13, 27, 3, 11, 28, 9, 14, 23, 35, 10, 35, 23, 14, 17, 6, 37, 49]  cost: 422.33 )
+ - Number of Calculated Solutions: 6276
+ - Number of Explore Calls: 54
+ - Processing Time: 198.71461289999934 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 620.0
+ - Final Cost: 422.33333333333337
+ - Cost Improvement 197.66666666666663
+
+
+Data for input_batch_8/356_100.in:
+ - Input Size: m
+ - Temperature: 3000
+ - Max Runtime: 2000
+ - Initial Explore Depth: 15
+ - Final Explore Depth: 3
+ - Seeding interval: 15
+ - Seeding Minimum: 50
+ - Explore Up Radius: 25
+ - Explore Down Radius: 25
+ - Explore Across Radius: 25
+ - Cycle Improvement Radius: 25
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/356_100.in
+ - Best Solution: ( path: [0, 4, 2, 78, 2, 71, 8, 99, 8, 76, 20, 0, 38, 65, 18, 2, 71, 2, 44, 45, 0, 5, 49, 50, 43, 7, 0]  cost: 1280073.44 )
+ - Number of Calculated Solutions: 7928
+ - Number of Explore Calls: 29
+ - Processing Time: 2000.126037099999 seconds
+ - Ending Reason: Time limit reached.
+ - Initial Cost: 1614861.8738100003
+ - Final Cost: 1280073.4373166668
+ - Cost Improvement 334788.4364933334
+
+
+Data for input_batch_8/356_200.in:
+ - Input Size: l
+ - Temperature: 6000
+ - Max Runtime: 3000
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 50
+ - Explore Up Radius: 5
+ - Explore Down Radius: 5
+ - Explore Across Radius: 5
+ - Cycle Improvement Radius: 15
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/356_200.in
+ - Best Solution: ( path: [0, 174, 6, 31, 128, 39, 7, 37, 22, 166, 40, 54, 183, 69, 180, 169, 189, 47, 85, 107, 84, 73, 67, 172, 10, 102, 95, 113, 123, 2, 121, 6, 126, 0]  cost: 3042636.09 )
+ - Number of Calculated Solutions: 1509
+ - Number of Explore Calls: 48
+ - Processing Time: 3001.2201570999987 seconds
+ - Ending Reason: Time limit reached.
+ - Initial Cost: 3239570.4663200006
+ - Final Cost: 3042636.0921
+ - Cost Improvement 196934.37422000058
+
+
+Data for input_batch_8/356_50.in:
+ - Input Size: s
+ - Temperature: 1800
+ - Max Runtime: 500
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 25
+ - Explore Up Radius: 10
+ - Explore Down Radius: 10
+ - Explore Across Radius: 10
+ - Cycle Improvement Radius: 10
+ - Droppoff Home Radius: 50
+ - Dropoff Location Radius 50
+Results for input_batch_8/356_50.in
+ - Best Solution: ( path: [0, 3, 48, 10, 17, 42, 40, 28, 14, 16, 29, 20, 32, 44, 13, 15, 36, 1, 34, 0]  cost: 462795.78 )
+ - Number of Calculated Solutions: 7314
+ - Number of Explore Calls: 79
+ - Processing Time: 237.5376187999991 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 708963.7497266667
+ - Final Cost: 462795.78100666666
+ - Cost Improvement 246167.96872000006
+
+
+Data for input_batch_8/357_100.in:
+ - Input Size: m
+ - Temperature: 3000
+ - Max Runtime: 2000
+ - Initial Explore Depth: 15
+ - Final Explore Depth: 3
+ - Seeding interval: 15
+ - Seeding Minimum: 50
+ - Explore Up Radius: 25
+ - Explore Down Radius: 25
+ - Explore Across Radius: 25
+ - Cycle Improvement Radius: 25
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/357_100.in
+ - Best Solution: ( path: [0, 69, 74, 19, 20, 89, 87, 33, 37, 77, 35, 39, 42, 50, 57, 58, 60, 62, 0]  cost: 19346940541.39 )
+ - Number of Calculated Solutions: 5346
+ - Number of Explore Calls: 24
+ - Processing Time: 1347.3022435000003 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 22979877963.133507
+ - Final Cost: 19346940541.39467
+ - Cost Improvement 3632937421.738838
+
+
+Data for input_batch_8/357_200.in:
+ - Input Size: l
+ - Temperature: 6000
+ - Max Runtime: 3000
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 50
+ - Explore Up Radius: 5
+ - Explore Down Radius: 5
+ - Explore Across Radius: 5
+ - Cycle Improvement Radius: 15
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/357_200.in
+ - Best Solution: ( path: [0, 150, 68, 0]  cost: 31588915982.78 )
+ - Number of Calculated Solutions: 1468
+ - Number of Explore Calls: 96
+ - Processing Time: 2886.957623800001 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 33227581447.62196
+ - Final Cost: 31588915982.77964
+ - Cost Improvement 1638665464.8423195
+
+
+Data for input_batch_8/357_50.in:
+ - Input Size: s
+ - Temperature: 1800
+ - Max Runtime: 500
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 25
+ - Explore Up Radius: 10
+ - Explore Down Radius: 10
+ - Explore Across Radius: 10
+ - Cycle Improvement Radius: 10
+ - Droppoff Home Radius: 50
+ - Dropoff Location Radius 50
+Results for input_batch_8/357_50.in
+ - Best Solution: ( path: [0, 48, 20, 4, 49, 18, 40, 14, 0]  cost: 4562340475.05 )
+ - Number of Calculated Solutions: 3794
+ - Number of Explore Calls: 95
+ - Processing Time: 122.1628434000013 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 6023272904.569933
+ - Final Cost: 4562340475.047733
+ - Cost Improvement 1460932429.5221996
+
+
+Data for input_batch_8/358_100.in:
+ - Input Size: m
+ - Temperature: 3000
+ - Max Runtime: 2000
+ - Initial Explore Depth: 15
+ - Final Explore Depth: 3
+ - Seeding interval: 15
+ - Seeding Minimum: 50
+ - Explore Up Radius: 25
+ - Explore Down Radius: 25
+ - Explore Across Radius: 25
+ - Cycle Improvement Radius: 25
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/358_100.in
+ - Best Solution: ( path: [72, 2, 4, 0, 10, 15, 20, 30, 16, 31, 34, 3, 36, 41, 48, 47, 52, 50, 57, 1, 60, 61, 0, 66, 71, 75, 77, 78, 3, 81, 53, 87, 83, 17, 72]  cost: 65383249057.96 )
+ - Number of Calculated Solutions: 7943
+ - Number of Explore Calls: 24
+ - Processing Time: 2000.1471385999976 seconds
+ - Ending Reason: Time limit reached.
+ - Initial Cost: 82113620226.01093
+ - Final Cost: 65383249057.95607
+ - Cost Improvement 16730371168.054855
+
+
+Data for input_batch_8/358_200.in:
+ - Input Size: l
+ - Temperature: 6000
+ - Max Runtime: 3000
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 50
+ - Explore Up Radius: 5
+ - Explore Down Radius: 5
+ - Explore Across Radius: 5
+ - Cycle Improvement Radius: 15
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/358_200.in
+ - Best Solution: ( path: [102, 66, 159, 140, 22, 88, 96, 164, 24, 170, 171, 175, 107, 144, 51, 185, 186, 102]  cost: 158701519448.41 )
+ - Number of Calculated Solutions: 1514
+ - Number of Explore Calls: 66
+ - Processing Time: 3000.933307800002 seconds
+ - Ending Reason: Time limit reached.
+ - Initial Cost: 166260141899.45355
+ - Final Cost: 158701519448.41028
+ - Cost Improvement 7558622451.043274
+
+
+Data for input_batch_8/358_50.in:
+ - Input Size: s
+ - Temperature: 1800
+ - Max Runtime: 500
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 25
+ - Explore Up Radius: 10
+ - Explore Down Radius: 10
+ - Explore Across Radius: 10
+ - Cycle Improvement Radius: 10
+ - Droppoff Home Radius: 50
+ - Dropoff Location Radius 50
+Results for input_batch_8/358_50.in
+ - Best Solution: ( path: [23, 37, 28, 43, 0, 30, 6, 14, 27, 7, 20, 15, 40, 10, 42, 8, 46, 48, 23]  cost: 25491682752.27 )
+ - Number of Calculated Solutions: 6116
+ - Number of Explore Calls: 71
+ - Processing Time: 198.1128768999988 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 34032462431.930058
+ - Final Cost: 25491682752.26971
+ - Cost Improvement 8540779679.660347
+
+
+Data for input_batch_8/359_100.in:
+ - Input Size: m
+ - Temperature: 3000
+ - Max Runtime: 2000
+ - Initial Explore Depth: 15
+ - Final Explore Depth: 3
+ - Seeding interval: 15
+ - Seeding Minimum: 50
+ - Explore Up Radius: 25
+ - Explore Down Radius: 25
+ - Explore Across Radius: 25
+ - Cycle Improvement Radius: 25
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/359_100.in
+ - Best Solution: ( path: [0, 1, 3, 4, 2, 4, 5, 1, 6, 1, 0, 7, 8, 10, 11, 9, 11, 12, 8, 13, 8, 7, 14, 15, 17, 18, 16, 18, 19, 15, 20, 15, 14, 21, 22, 24, 25, 23, 25, 27, 22, 21, 28, 29, 31, 32, 30, 32, 33, 29, 28, 35, 36, 38, 39, 37, 39, 40, 36, 35, 42, 35, 36, 35, 42, 43, 45, 46, 44, 46, 47, 43, 48, 43, 42, 49, 50, 52, 53, 51, 53, 54, 50, 55, 50, 49, 56, 57, 59, 60, 58, 60, 61, 57, 62, 57, 56, 63, 64, 66, 67, 65, 67, 68, 64, 69, 64, 63, 70, 71, 73, 74, 72, 74, 75, 71, 76, 71, 70, 77, 78, 80, 81, 79, 81, 82, 78, 83, 78, 77, 84, 85, 87, 88, 86, 88, 89, 85, 90, 85, 84, 91, 92, 94, 95, 93, 95, 96, 92, 91, 0]  cost: 494.67 )
+ - Number of Calculated Solutions: 8635
+ - Number of Explore Calls: 19
+ - Processing Time: 2000.042379300001 seconds
+ - Ending Reason: Time limit reached.
+ - Initial Cost: 513.3333333333334
+ - Final Cost: 494.6666666666667
+ - Cost Improvement 18.666666666666686
+
+
+Data for input_batch_8/359_200.in:
+ - Input Size: l
+ - Temperature: 6000
+ - Max Runtime: 3000
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 50
+ - Explore Up Radius: 5
+ - Explore Down Radius: 5
+ - Explore Across Radius: 5
+ - Cycle Improvement Radius: 15
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/359_200.in
+ - Best Solution: ( path: [0, 1, 3, 4, 2, 4, 5, 1, 6, 1, 0, 7, 8, 10, 11, 9, 11, 12, 8, 13, 8, 7, 14, 15, 17, 18, 16, 18, 19, 15, 20, 15, 14, 21, 22, 24, 25, 23, 25, 26, 22, 27, 22, 21, 28, 29, 31, 32, 30, 32, 33, 29, 34, 29, 28, 35, 36, 38, 39, 37, 39, 40, 36, 41, 36, 35, 42, 43, 45, 46, 44, 46, 47, 43, 48, 43, 42, 49, 50, 52, 53, 51, 53, 54, 50, 55, 50, 49, 56, 57, 59, 60, 58, 60, 61, 57, 62, 57, 56, 63, 64, 66, 67, 65, 67, 68, 64, 69, 64, 63, 70, 71, 73, 74, 72, 74, 75, 71, 76, 71, 70, 77, 78, 80, 81, 79, 81, 82, 78, 83, 78, 77, 84, 85, 87, 88, 86, 88, 89, 85, 90, 85, 84, 91, 92, 94, 95, 93, 95, 96, 92, 97, 92, 91, 98, 99, 101, 102, 100, 102, 103, 99, 104, 99, 98, 105, 106, 108, 109, 107, 109, 111, 106, 105, 112, 113, 115, 116, 114, 116, 117, 113, 118, 113, 112, 119, 120, 122, 123, 121, 123, 124, 120, 125, 120, 119, 126, 127, 129, 130, 128, 130, 131, 127, 132, 127, 126, 133, 134, 136, 137, 135, 137, 138, 134, 139, 134, 133, 140, 141, 143, 144, 142, 144, 146, 141, 140, 147, 148, 150, 151, 149, 151, 152, 148, 153, 148, 147, 154, 155, 157, 158, 156, 158, 159, 155, 160, 155, 154, 161, 162, 164, 165, 163, 165, 166, 162, 167, 162, 161, 168, 169, 171, 172, 170, 172, 173, 169, 174, 169, 168, 175, 176, 178, 179, 177, 179, 180, 176, 181, 176, 175, 182, 183, 185, 186, 184, 186, 187, 183, 188, 183, 182, 189, 190, 192, 193, 191, 193, 194, 190, 195, 190, 189, 0]  cost: 1012.0 )
+ - Number of Calculated Solutions: 560
+ - Number of Explore Calls: 20
+ - Processing Time: 1046.3408662000002 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 1026.6666666666667
+ - Final Cost: 1012.0
+ - Cost Improvement 14.666666666666742
+
+
+Data for input_batch_8/359_50.in:
+ - Input Size: s
+ - Temperature: 1800
+ - Max Runtime: 500
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 25
+ - Explore Up Radius: 10
+ - Explore Down Radius: 10
+ - Explore Across Radius: 10
+ - Cycle Improvement Radius: 10
+ - Droppoff Home Radius: 50
+ - Dropoff Location Radius 50
+Results for input_batch_8/359_50.in
+ - Best Solution: ( path: [0, 1, 3, 4, 2, 0, 7, 9, 11, 9, 7, 14, 15, 17, 18, 16, 14, 21, 23, 25, 26, 22, 21, 28, 30, 32, 31, 29, 28, 35, 37, 39, 37, 35, 42, 44, 46, 44, 42, 0]  cost: 205.67 )
+ - Number of Calculated Solutions: 3605
+ - Number of Explore Calls: 37
+ - Processing Time: 106.60056279999844 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 220.33333333333331
+ - Final Cost: 205.66666666666669
+ - Cost Improvement 14.666666666666629
+
+
+Data for input_batch_8/360_100.in:
+ - Input Size: m
+ - Temperature: 3000
+ - Max Runtime: 2000
+ - Initial Explore Depth: 15
+ - Final Explore Depth: 3
+ - Seeding interval: 15
+ - Seeding Minimum: 50
+ - Explore Up Radius: 25
+ - Explore Down Radius: 25
+ - Explore Across Radius: 25
+ - Cycle Improvement Radius: 25
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/360_100.in
+ - Best Solution: ( path: [8, 28, 76, 18, 0, 14, 8]  cost: 1585.1 )
+ - Number of Calculated Solutions: 2090
+ - Number of Explore Calls: 30
+ - Processing Time: 263.0729182000032 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 1761.2344500000002
+ - Final Cost: 1585.1033933333335
+ - Cost Improvement 176.1310566666666
+
+
+Data for input_batch_8/360_200.in:
+ - Input Size: l
+ - Temperature: 6000
+ - Max Runtime: 3000
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 50
+ - Explore Up Radius: 5
+ - Explore Down Radius: 5
+ - Explore Across Radius: 5
+ - Cycle Improvement Radius: 15
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/360_200.in
+ - Best Solution: ( path: [18, 3, 163, 3, 140, 106, 75, 18]  cost: 4069.13 )
+ - Number of Calculated Solutions: 1497
+ - Number of Explore Calls: 86
+ - Processing Time: 3000.121923699997 seconds
+ - Ending Reason: Time limit reached.
+ - Initial Cost: 4456.803679999999
+ - Final Cost: 4069.1339
+ - Cost Improvement 387.66977999999926
+
+
+Data for input_batch_8/360_50.in:
+ - Input Size: s
+ - Temperature: 1800
+ - Max Runtime: 500
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 25
+ - Explore Up Radius: 10
+ - Explore Down Radius: 10
+ - Explore Across Radius: 10
+ - Cycle Improvement Radius: 10
+ - Droppoff Home Radius: 50
+ - Dropoff Location Radius 50
+Results for input_batch_8/360_50.in
+ - Best Solution: ( path: [5, 19, 25, 4, 0, 36, 3, 44, 11, 10, 30, 5]  cost: 935.12 )
+ - Number of Calculated Solutions: 2458
+ - Number of Explore Calls: 33
+ - Processing Time: 79.87954670000181 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 1065.7422133333332
+ - Final Cost: 935.1160733333334
+ - Cost Improvement 130.62613999999985
+
+
+Data for input_batch_8/361_100.in:
+ - Input Size: m
+ - Temperature: 3000
+ - Max Runtime: 2000
+ - Initial Explore Depth: 15
+ - Final Explore Depth: 3
+ - Seeding interval: 15
+ - Seeding Minimum: 50
+ - Explore Up Radius: 25
+ - Explore Down Radius: 25
+ - Explore Across Radius: 25
+ - Cycle Improvement Radius: 25
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/361_100.in
+ - Best Solution: ( path: [99, 0, 75, 42, 3, 35, 52, 34, 99]  cost: 2428.04 )
+ - Number of Calculated Solutions: 3627
+ - Number of Explore Calls: 27
+ - Processing Time: 924.3533841999997 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 2783.4833333333327
+ - Final Cost: 2428.0400000000004
+ - Cost Improvement 355.44333333333225
+
+
+Data for input_batch_8/362_100.in:
+ - Input Size: m
+ - Temperature: 3000
+ - Max Runtime: 2000
+ - Initial Explore Depth: 15
+ - Final Explore Depth: 3
+ - Seeding interval: 15
+ - Seeding Minimum: 50
+ - Explore Up Radius: 25
+ - Explore Down Radius: 25
+ - Explore Across Radius: 25
+ - Cycle Improvement Radius: 25
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/362_100.in
+ - Best Solution: ( path: [25, 14, 54, 92, 29, 42, 71, 11, 14, 25]  cost: 1854.67 )
+ - Number of Calculated Solutions: 3483
+ - Number of Explore Calls: 41
+ - Processing Time: 888.8773913000005 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 2287.7488333333336
+ - Final Cost: 1854.6651000000004
+ - Cost Improvement 433.08373333333316
+
+
+Data for input_batch_8/362_200.in:
+ - Input Size: l
+ - Temperature: 6000
+ - Max Runtime: 3000
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 50
+ - Explore Up Radius: 5
+ - Explore Down Radius: 5
+ - Explore Across Radius: 5
+ - Cycle Improvement Radius: 15
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/362_200.in
+ - Best Solution: ( path: [133, 8, 170, 0, 130, 116, 133]  cost: 4089.31 )
+ - Number of Calculated Solutions: 1496
+ - Number of Explore Calls: 85
+ - Processing Time: 3001.7576477999974 seconds
+ - Ending Reason: Time limit reached.
+ - Initial Cost: 4171.349966666664
+ - Final Cost: 4089.3096333333324
+ - Cost Improvement 82.04033333333155
+
+
+Data for input_batch_8/362_50.in:
+ - Input Size: s
+ - Temperature: 1800
+ - Max Runtime: 500
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 25
+ - Explore Up Radius: 10
+ - Explore Down Radius: 10
+ - Explore Across Radius: 10
+ - Cycle Improvement Radius: 10
+ - Droppoff Home Radius: 50
+ - Dropoff Location Radius 50
+Results for input_batch_8/362_50.in
+ - Best Solution: ( path: [41, 25, 48, 6, 27, 1, 41]  cost: 780.52 )
+ - Number of Calculated Solutions: 2079
+ - Number of Explore Calls: 49
+ - Processing Time: 65.23883580000256 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 895.9265666666668
+ - Final Cost: 780.5231
+ - Cost Improvement 115.40346666666676
+
+
+Data for input_batch_8/363_100.in:
+ - Input Size: m
+ - Temperature: 3000
+ - Max Runtime: 2000
+ - Initial Explore Depth: 15
+ - Final Explore Depth: 3
+ - Seeding interval: 15
+ - Seeding Minimum: 50
+ - Explore Up Radius: 25
+ - Explore Down Radius: 25
+ - Explore Across Radius: 25
+ - Cycle Improvement Radius: 25
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/363_100.in
+ - Best Solution: ( path: [30, 66, 75, 67, 62, 57, 41, 98, 84, 6, 77, 78, 52, 99, 95, 30]  cost: 29.0 )
+ - Number of Calculated Solutions: 9053
+ - Number of Explore Calls: 52
+ - Processing Time: 2000.1096930000058 seconds
+ - Ending Reason: Time limit reached.
+ - Initial Cost: 34.333333333333336
+ - Final Cost: 29.0
+ - Cost Improvement 5.333333333333336
+
+
+Data for input_batch_8/363_200.in:
+ - Input Size: l
+ - Temperature: 6000
+ - Max Runtime: 3000
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 50
+ - Explore Up Radius: 5
+ - Explore Down Radius: 5
+ - Explore Across Radius: 5
+ - Cycle Improvement Radius: 15
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/363_200.in
+ - Best Solution: ( path: [186, 16, 90, 2, 144, 186]  cost: 52.33 )
+ - Number of Calculated Solutions: 1828
+ - Number of Explore Calls: 102
+ - Processing Time: 3000.8225510000048 seconds
+ - Ending Reason: Time limit reached.
+ - Initial Cost: 58.333333333333336
+ - Final Cost: 52.333333333333336
+ - Cost Improvement 6.0
+
+
+Data for input_batch_8/363_50.in:
+ - Input Size: s
+ - Temperature: 1800
+ - Max Runtime: 500
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 25
+ - Explore Up Radius: 10
+ - Explore Down Radius: 10
+ - Explore Across Radius: 10
+ - Cycle Improvement Radius: 10
+ - Droppoff Home Radius: 50
+ - Dropoff Location Radius 50
+Results for input_batch_8/363_50.in
+ - Best Solution: ( path: [38, 12, 9, 35, 22, 20, 6, 23, 43, 33, 49, 10, 18, 47, 40, 42, 17, 16, 44, 15, 19, 26, 24, 27, 38]  cost: 16.0 )
+ - Number of Calculated Solutions: 9017
+ - Number of Explore Calls: 105
+ - Processing Time: 234.6339913999982 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 23.333333333333332
+ - Final Cost: 16.0
+ - Cost Improvement 7.333333333333332
+
+
+Data for input_batch_8/364_100.in:
+ - Input Size: m
+ - Temperature: 3000
+ - Max Runtime: 2000
+ - Initial Explore Depth: 15
+ - Final Explore Depth: 3
+ - Seeding interval: 15
+ - Seeding Minimum: 50
+ - Explore Up Radius: 25
+ - Explore Down Radius: 25
+ - Explore Across Radius: 25
+ - Cycle Improvement Radius: 25
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/364_100.in
+ - Best Solution: ( path: [42, 64, 43, 61, 67, 68, 36, 62, 28, 51, 69, 5, 15, 9, 18, 2, 5, 52, 33, 20, 40, 59, 37, 48, 58, 57, 60, 24, 38, 6, 55, 41, 7, 42]  cost: 56.0 )
+ - Number of Calculated Solutions: 29542
+ - Number of Explore Calls: 52
+ - Processing Time: 2000.024966799996 seconds
+ - Ending Reason: Time limit reached.
+ - Initial Cost: 86.0
+ - Final Cost: 56.0
+ - Cost Improvement 30.0
+
+
+Data for input_batch_8/364_200.in:
+ - Input Size: l
+ - Temperature: 6000
+ - Max Runtime: 3000
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 50
+ - Explore Up Radius: 5
+ - Explore Down Radius: 5
+ - Explore Across Radius: 5
+ - Cycle Improvement Radius: 15
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/364_200.in
+ - Best Solution: ( path: [115, 0, 9, 5, 6, 89, 13, 34, 54, 20, 138, 17, 0, 30, 57, 52, 48, 26, 0, 3, 59, 53, 43, 44, 69, 73, 38, 0, 80, 109, 4, 15, 5, 2, 114, 122, 2, 115]  cost: 135.33 )
+ - Number of Calculated Solutions: 3701
+ - Number of Explore Calls: 113
+ - Processing Time: 2061.629995000003 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 176.0
+ - Final Cost: 135.33333333333334
+ - Cost Improvement 40.66666666666666
+
+
+Data for input_batch_8/364_50.in:
+ - Input Size: s
+ - Temperature: 1800
+ - Max Runtime: 500
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 25
+ - Explore Up Radius: 10
+ - Explore Down Radius: 10
+ - Explore Across Radius: 10
+ - Cycle Improvement Radius: 10
+ - Droppoff Home Radius: 50
+ - Dropoff Location Radius 50
+Results for input_batch_8/364_50.in
+ - Best Solution: ( path: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]  cost: 31.67 )
+ - Number of Calculated Solutions: 1574
+ - Number of Explore Calls: 26
+ - Processing Time: 6.450815299998794 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 33.333333333333336
+ - Final Cost: 31.666666666666668
+ - Cost Improvement 1.6666666666666679
+
+
+Data for input_batch_8/365_100.in:
+ - Input Size: m
+ - Temperature: 3000
+ - Max Runtime: 2000
+ - Initial Explore Depth: 15
+ - Final Explore Depth: 3
+ - Seeding interval: 15
+ - Seeding Minimum: 50
+ - Explore Up Radius: 25
+ - Explore Down Radius: 25
+ - Explore Across Radius: 25
+ - Cycle Improvement Radius: 25
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/365_100.in
+ - Best Solution: ( path: [0, 2, 3, 4, 5, 10, 6, 7, 11, 14, 15, 16, 21, 17, 18, 22, 25, 26, 27, 32, 28, 29, 33, 36, 37, 38, 43, 39, 40, 44, 47, 48, 49, 54, 50, 51, 55, 58, 59, 60, 65, 61, 62, 66, 69, 70, 71, 76, 72, 73, 77, 80, 82, 87, 83, 84, 88, 91, 92, 93, 94, 95, 96, 97, 98, 99, 98, 97, 96, 94, 93, 91, 88, 84, 83, 87, 82, 80, 77, 73, 72, 76, 71, 69, 66, 62, 61, 65, 60, 58, 55, 51, 50, 54, 49, 47, 44, 40, 39, 43, 38, 36, 33, 29, 28, 32, 27, 25, 22, 18, 17, 21, 16, 14, 11, 7, 6, 10, 5, 3, 2, 0]  cost: 23961.33 )
+ - Number of Calculated Solutions: 7436
+ - Number of Explore Calls: 14
+ - Processing Time: 1363.5187239000006 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 24774.666666666668
+ - Final Cost: 23961.333333333332
+ - Cost Improvement 813.3333333333358
+
+
+Data for input_batch_8/365_200.in:
+ - Input Size: l
+ - Temperature: 6000
+ - Max Runtime: 3000
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 50
+ - Explore Up Radius: 5
+ - Explore Down Radius: 5
+ - Explore Across Radius: 5
+ - Cycle Improvement Radius: 15
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/365_200.in
+ - Best Solution: ( path: [0, 1, 2, 3, 4, 5, 10, 6, 7, 13, 11, 14, 15, 16, 21, 17, 18, 24, 22, 25, 26, 27, 32, 28, 29, 35, 33, 36, 37, 38, 43, 39, 40, 46, 44, 47, 48, 49, 54, 50, 51, 57, 55, 58, 59, 60, 65, 61, 62, 68, 66, 69, 70, 71, 76, 72, 73, 79, 77, 80, 81, 82, 87, 83, 84, 90, 88, 91, 92, 93, 98, 94, 95, 101, 99, 102, 103, 104, 109, 105, 106, 112, 110, 113, 114, 115, 120, 116, 117, 123, 121, 124, 125, 126, 131, 127, 128, 134, 132, 135, 136, 137, 142, 138, 139, 145, 143, 146, 147, 148, 153, 149, 150, 156, 154, 157, 158, 159, 164, 160, 161, 167, 165, 168, 169, 170, 175, 171, 172, 178, 176, 179, 180, 181, 186, 182, 183, 189, 187, 190, 191, 192, 193, 194, 195, 196, 198, 197, 198, 199, 198, 196, 195, 193, 192, 190, 187, 183, 182, 186, 181, 179, 176, 172, 171, 175, 170, 168, 165, 161, 160, 164, 159, 157, 154, 150, 149, 153, 148, 146, 143, 139, 138, 142, 137, 135, 132, 128, 127, 131, 126, 124, 121, 117, 116, 120, 115, 113, 110, 106, 105, 109, 104, 102, 99, 95, 94, 98, 93, 91, 88, 84, 83, 87, 82, 80, 77, 73, 72, 76, 71, 69, 66, 62, 61, 65, 60, 58, 55, 51, 50, 54, 49, 47, 44, 40, 39, 43, 38, 36, 33, 29, 28, 32, 27, 25, 22, 18, 17, 21, 16, 14, 11, 7, 6, 10, 5, 3, 2, 0]  cost: 50584.0 )
+ - Number of Calculated Solutions: 636
+ - Number of Explore Calls: 16
+ - Processing Time: 785.2081579000005 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 52170.666666666664
+ - Final Cost: 50584.0
+ - Cost Improvement 1586.6666666666642
+
+
+Data for input_batch_8/365_50.in:
+ - Input Size: s
+ - Temperature: 1800
+ - Max Runtime: 500
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 25
+ - Explore Up Radius: 10
+ - Explore Down Radius: 10
+ - Explore Across Radius: 10
+ - Cycle Improvement Radius: 10
+ - Droppoff Home Radius: 50
+ - Dropoff Location Radius 50
+Results for input_batch_8/365_50.in
+ - Best Solution: ( path: [0, 2, 3, 5, 10, 6, 7, 11, 14, 16, 21, 17, 18, 22, 25, 27, 32, 28, 29, 33, 36, 38, 43, 39, 43, 38, 36, 33, 29, 28, 32, 27, 25, 22, 18, 17, 21, 16, 15, 14, 11, 7, 6, 10, 5, 4, 3, 2, 0]  cost: 10777.33 )
+ - Number of Calculated Solutions: 2567
+ - Number of Explore Calls: 33
+ - Processing Time: 40.90527970000403 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 12121.333333333334
+ - Final Cost: 10777.333333333334
+ - Cost Improvement 1344.0
+
+
+Data for input_batch_8/366_100.in:
+ - Input Size: m
+ - Temperature: 3000
+ - Max Runtime: 2000
+ - Initial Explore Depth: 15
+ - Final Explore Depth: 3
+ - Seeding interval: 15
+ - Seeding Minimum: 50
+ - Explore Up Radius: 25
+ - Explore Down Radius: 25
+ - Explore Across Radius: 25
+ - Cycle Improvement Radius: 25
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/366_100.in
+ - Best Solution: ( path: [21, 94, 98, 73, 33, 53, 68, 18, 41, 52, 5, 52, 44, 74, 32, 6, 16, 8, 83, 35, 81, 63, 46, 29, 82, 67, 38, 55, 9, 43, 25, 75, 90, 10, 86, 76, 96, 14, 45, 65, 22, 88, 71, 87, 72, 94, 98, 11, 76, 60, 69, 19, 44, 52, 57, 36, 39, 32, 48, 23, 19, 21]  cost: 30218.65 )
+ - Number of Calculated Solutions: 9924
+ - Number of Explore Calls: 22
+ - Processing Time: 1312.8029072999998 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 40089.98408333333
+ - Final Cost: 30218.645249999998
+ - Cost Improvement 9871.338833333331
+
+
+Data for input_batch_8/366_200.in:
+ - Input Size: l
+ - Temperature: 6000
+ - Max Runtime: 3000
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 50
+ - Explore Up Radius: 5
+ - Explore Down Radius: 5
+ - Explore Across Radius: 5
+ - Cycle Improvement Radius: 15
+ - Droppoff Home Radius: 10
+ - Dropoff Location Radius 10
+Results for input_batch_8/366_200.in
+ - Best Solution: ( path: [81, 77, 22, 1, 140, 90, 131, 88, 81]  cost: 56832.75 )
+ - Number of Calculated Solutions: 1061
+ - Number of Explore Calls: 53
+ - Processing Time: 1069.292822599993 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 63917.52038333333
+ - Final Cost: 56832.750289999996
+ - Cost Improvement 7084.770093333333
+
+
+Data for input_batch_8/366_50.in:
+ - Input Size: s
+ - Temperature: 1800
+ - Max Runtime: 500
+ - Initial Explore Depth: 30
+ - Final Explore Depth: 3
+ - Seeding interval: 25
+ - Seeding Minimum: 25
+ - Explore Up Radius: 10
+ - Explore Down Radius: 10
+ - Explore Across Radius: 10
+ - Cycle Improvement Radius: 10
+ - Droppoff Home Radius: 50
+ - Dropoff Location Radius 50
+Results for input_batch_8/366_50.in
+ - Best Solution: ( path: [7, 2, 43, 0, 14, 8, 20, 37, 45, 23, 21, 1, 25, 12, 25, 30, 9, 17, 9, 40, 31, 29, 31, 40, 14, 8, 10, 16, 36, 13, 24, 5, 7]  cost: 16000.51 )
+ - Number of Calculated Solutions: 2608
+ - Number of Explore Calls: 26
+ - Processing Time: 40.286918500001775 seconds
+ - Ending Reason: Exploration limit reached.
+ - Initial Cost: 19256.53392
+ - Final Cost: 16000.50859333333
+ - Cost Improvement 3256.0253266666714
